@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Kwiyandikisha - Forex Trading Cash</title>
+</head>
+<body>
+  <h2>Kwiyandikisha</h2>
+  <form onsubmit="registerUser(event)">
+    <input type="text" id="username" placeholder="Izina" required><br>
+    <input type="password" id="password" placeholder="Ijambo banga" required><br>
+    <input type="text" id="referral" placeholder="Code y'uwagutumiye (nimba uyifise)"><br>
+    <button type="submit">Iyandikishe</button>
+  </form>
+  <p>Wamaze kwiyandikisha? <a href="login.html">Injira</a></p>
+
+  <script>
+    function generateCode(name) {
+      return name.substring(0, 4).toUpperCase() + Math.floor(Math.random() * 10000);
+    }
+
+    function registerUser(e) {
+      e.preventDefault();
+      const username = document.getElementById("username").value;
+      const password = document.getElementById("password").value;
+      const referral = document.getElementById("referral").value;
+      const referralCode = generateCode(username);
+
+      const users = JSON.parse(localStorage.getItem("users") || "[]");
+
+      if (users.some(user => user.username === username)) {
+ alert("Izina rirakoreshejwe.");
+        return;
+      }
+
+      users.push({
+        username,
+        password,
+        referralCode,
+        invitedBy: referral,
+        balance: 150000,
+        totalProfit: 0,
+        robots: []
+      });
+
+      localStorage.setItem("users", JSON.stringify(users));
+      localStorage.setItem("loggedInUser", username);
+      alert("Wiyandikishije neza!");
+      window.location.href = "dashboard.html";
+    }
+  </script>
+</body>
+</html>
