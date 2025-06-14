@@ -1,0 +1,277 @@
+
+
+
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Forex Trading Cash - Demo</title>
+<style>
+  body { font-family: Arial, sans-serif; padding: 10px; max-width: 480px; margin: auto; }
+  section { display: none; }
+  section.active { display: block; }
+  input, button { display: block; margin: 8px 0; width: 100%; padding: 8px; }
+  table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+  th, td { border: 1px solid #ccc; padding: 8px; text-align: center; }
+  button { cursor: pointer; background-color: #2a9d8f; color: white; border: none; }
+  button:hover { background-color: #21867a; }
+  nav { margin-bottom: 20px; }
+  nav button { width: auto; margin-right: 10px; }
+  .referral-code { font-weight: bold; color: #e76f51; }
+</style>
+</head>
+<body>
+
+<nav>
+<button onclick="showSection('register')">Iyandikishe</button>
+  <button onclick="showSection('login')">Injira</button>
+  <button onclick="showSection('dashboard')">Dashboard</button>
+  <button onclick="logout()">Sohoka</button>
+</nav>
+
+<!-- Register -->
+<section id="register" class="active">
+  <h2>Kwiyandikisha</h2>
+  <form onsubmit="registerUser(event)">
+    <input type="text" id="regUsername" placeholder="Izina" required />
+    <input type="password" id="regPassword" placeholder="Ijambo banga" required />
+    <input type="text" id="regReferral" placeholder="Code y'uwagutumiye (nimba uyifise)" />
+    <button type="submit">Iyandikishe</button>
+  </form>
+  <p>Wamaze kwiyandikisha? <a href="#" onclick="showSection('login')">Injira</a></p>
+</section>
+
+<!-- Login -->
+<section id="login">
+  <h2>Injira</h2>
+  <form onsubmit="loginUser(event)">
+    <input type="text" id="logUsername" placeholder="Izina" required />
+    <input type="password" id="logPassword" placeholder="Ijambo banga" required />
+    <button type="submit">Injira</button>
+  </form>
+  <p>Nta konti? <a href="#" onclick="showSection('register')">Iyandikishe</a></p>
+</section>
+
+<!-- Dashboard -->
+<section id="dashboard">
+  <h2>Dashboard</h2>
+  <p>Murakaza neza, <span id="welcomeUser"></span>!</p>
+ <p>Referral Code yawe: <span class="referral-code" id="userReferralCode"></span></p>
+  <p>Balance: <span id="balance"></span> BIF</p>
+  <p>Total Profit: <span id="totalProfit"></span> BIF</p>
+
+  <h3>Robots</h3>
+  <table>
+    <thead>
+      <tr>
+        <th>Izina</th>
+        <th>Igura</th>
+        <th>Inyungu/umunsi</th>
+        <th>Imisi</th>
+        <th>Igura Robot</th>
+      </tr>
+    </thead>
+    <tbody id="robotsTable"></tbody>
+  </table>
+
+  <h3>Deposit & Withdrawal</h3>
+  <form onsubmit="makeDeposit(event)">
+    <input type="number" id="depositAmount" placeholder="Injira amafaranga ya Deposit" min="1000" required />
+    <button type="submit">Deposita</button>
+  </form>
+
+  <form onsubmit="makeWithdrawal(event)">
+    <input type="number" id="withdrawAmount" placeholder="Injira amafaranga ya Withdrawal" min="1000" required />
+    <button type="submit">Sohora</button>
+  </form>
+
+  <button onclick="showReferralStats()">Abantu watumye n'agashimwe</button>
+  <div id="referralStats"></div>
+</section>
+
+<script>
+  const robots = [
+    { name: "Robot 1", price: 10000, profitPerDay: 600, days: 30 },
+    { name: "Robot 2", price: 20000, profitPerDay: 1200, days: 30 },
+    { name: "Robot 3", price: 30000, profitPerDay: 1800, days: 30 },
+[6/15, 12:06 AM] ChatGPT: { name: "Robot 4", price: 40000, profitPerDay: 2400, days: 30 },
+    { name: "Robot 5", price: 50000, profitPerDay: 3000, days: 30 },
+  ];
+
+  // Helper to switch between views
+  function showSection(id) {
+    document.querySelectorAll("section").forEach(sec => sec.classList.remove("active"));
+    document.getElementById(id).classList.add("active");
+    if (id === "dashboard") {
+      if (!getLoggedInUser()) {
+        alert("Uraza kwinjira ubanza!");
+        showSection("login");
+      } else {
+        loadDashboard();
+      }
+    }
+  }
+
+  // Generate referral code
+  function generateCode(name) {
+    return name.substring(0, 4).toUpperCase() + Math.floor(Math.random() * 10000);
+  }
+
+  // Register user
+  function registerUser(e) {
+    e.preventDefault();
+    const username = document.getElementById("regUsername").value.trim();
+    const password = document.getElementById("regPassword").value;
+    const referral = document.getElementById("regReferral").value.trim();
+
+    if(!username || !password){
+      alert("Izina n'ijambo banga birakenewe.");
+      return;
+    }
+
+    let users = JSON.parse(localStorage.getItem("users") || "[]");
+
+    if(users.find(u => u.username === username)) {
+      alert("Izina rirakoreshejwe, hitamo irindi.");
+      return;
+    }
+ const referralCode = generateCode(username);
+
+    users.push({
+      username,
+      password,
+      referralCode,
+      invitedBy: referral || null,
+      balance: 150000,
+      totalProfit: 0,
+      robotsOwned: [],
+      referralBonus: 0,
+      referrals: []  // abakoresheje code ye
+    });
+
+    // Add new user
+    localStorage.setItem("users", JSON.stringify(users));
+    // Set logged in user
+    localStorage.setItem("loggedInUser", username);
+    alert("Wiyandikishije neza!");
+    showSection("dashboard");
+  }
+
+  // Login user
+  function loginUser(e) {
+    e.preventDefault();
+    const username = document.getElementById("logUsername").value.trim();
+    const password = document.getElementById("logPassword").value;
+
+    let users = JSON.parse(localStorage.getItem("users") || "[]");
+    const user = users.find(u => u.username === username && u.password === password);
+
+    if(user) {
+      localStorage.setItem("loggedInUser", username);
+      alert("Winjiye neza!");
+      showSection("dashboard");
+    } else {
+      alert("Izina canke ijambo banga ntibihuye.");
+    }
+  }
+
+  // Get current logged in user object
+  function getLoggedInUser() {
+    const username = localStorage.getItem("loggedInUser");
+    if (!username) return null;
+ let users = JSON.parse(localStorage.getItem("users") || "[]");
+    return users.find(u => u.username === username) || null;
+  }
+
+  // Save user data after updates
+  function saveUserData(user) {
+    let users = JSON.parse(localStorage.getItem("users") || "[]");
+    const idx = users.findIndex(u => u.username === user.username);
+    if (idx !== -1) {
+      users[idx] = user;
+      localStorage.setItem("users", JSON.stringify(users));
+    }
+  }
+
+  // Logout
+  function logout() {
+    localStorage.removeItem("loggedInUser");
+    alert("Wasohotse neza!");
+    showSection("login");
+  }
+
+  // Load dashboard content
+  function loadDashboard() {
+    const user = getLoggedInUser();
+    if (!user) return;
+
+    document.getElementById("welcomeUser").innerText = user.username;
+    document.getElementById("balance").innerText = user.balance.toLocaleString();
+    document.getElementById("totalProfit").innerText = user.totalProfit.toLocaleString();
+    document.getElementById("userReferralCode").innerText = user.referralCode;
+
+    const table = document.getElementById("robotsTable");
+    table.innerHTML = "";
+
+    robots.forEach((robot, i) => {
+      const row = document.createElement("tr");
+      row.innerHTML = `
+        <td>robot.name</td>
+ <td>{robot.price.toLocaleString()} BIF</td>
+        <td>robot.profitPerDay.toLocaleString() BIF</td>
+        <td>{robot.days}</td>
+        <td><button onclick="buyRobot(${i})">Gura</button></td>
+      `;
+      table.appendChild(row);
+    });
+  }
+
+  // Buy robot function
+  function buyRobot(index) {
+    const user = getLoggedInUser();
+    if (!user) return alert("Injira ubanza!");
+
+    const robot = robots[index];
+    if (user.balance < robot.price) return alert("Amafaranga yawe ntahagije.");
+
+    // Gura robot
+    user.balance -= robot.price;
+    // Amafaranga yinjira mu minsi 30
+    const profitTotal = robot.profitPerDay * robot.days;
+    user.totalProfit += profitTotal;
+    // Add robot bought
+    user.robotsOwned.push({
+      name: robot.name,
+      price: robot.price,
+      profitPerDay: robot.profitPerDay,
+      days: robot.days,
+      boughtAt: new Date().toISOString()
+    });
+
+    // Referral bonus 10% ku muntu wamutumiye
+    if (user.invitedBy) {
+      let users = JSON.parse(localStorage.getItem("users") || "[]");
+      const inviter = users.find(u => u.referralCode === user.invitedBy);
+      if (inviter) {
+        const bonus = robot.price * 0.10;
+        inviter.balance += bonus;
+        inviter.referralBonus = (inviter.referralBonus || 0) + bonus;
+ inviter.referrals = inviter.referrals || [];
+        if(!inviter.referrals.includes(user.username)) 
+          inviter.referrals.push(user.username);
+        
+        // Save inviter update
+        users[users.findIndex(u => u.username === inviter.username)] = inviter;
+        localStorage.setItem("users", JSON.stringify(users));
+      
+
+    // Save user data and update UI
+    saveUserData(user);
+    alert(`Waguze{robot.name} neza! Uzokinjiza profitTotal.toLocaleString() BIF mu minsi{robot.days}.`);
+    loadDashboard();
+  }
+
+  // Deposit function
+  function make
