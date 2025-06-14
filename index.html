@@ -1,53 +1,231 @@
+```html
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="UTF-8" />
-    <link href="index.css" rel="stylesheet" />
-    <title>miniapp</title>
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no"
-    />
-    <script>
-      function formatQuery() {
-        var url = window.location.href;
-        var index = url.lastIndexOf('?');
-        var queryMap = {};
-        if (index > -1) {
-          var queryStr = url.slice(index + 1);
-          var queryList = queryStr.split('&');
-          for (var i = 0; i < queryList.length; i++) {
-            var value = queryList[i];
-            var item = value.split('=');
-            var key = item[0] || '';
-            var val = decodeURIComponent(item[1] || '');
-            queryMap[key] = val;
-          }
-        }
-        return queryMap;
-      }
-      var queryMap = formatQuery();
-      document.documentElement.style.backgroundColor = queryMap.bgColor;
-      if (queryMap._transsion_dlt_miniapp_dark_theme_is_enabled == 1) {
-        var classVal = document.documentElement.getAttribute('class');
-        if (!classVal) {
-          classVal = 'dlt-dark__mode';
-        } else {
-          classVal = classVal.concat(' dlt-dark__mode');
-        }
-        document.documentElement.setAttribute('class', classVal);
-      }
-      (function (global) {
-        global.feRenderPreloadStart = Date.now();
-      })(window);
-    </script>
-  </head>
-  <body>
-    <script type="text/javascript" src="render.js"></script>
-    <script type="text/javascript">
-      (function (global) {
-        global.feSlavePreloadEnd = Date.now();
-      })(window);
-    </script>
-  </body>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Forex Trading Cash</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f9f9f9;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      background: #009688;
+      color: #fff;
+      padding: 20px;
+      text-align: center;
+    }
+    nav {
+      text-align: right;
+      padding: 10px;
+      background: #e0e0e0;
+    }
+    nav button {
+      margin: 0 5px;
+    }
+    main {
+      padding: 20px;
+    }
+    .section {
+      background: #fff;
+      border-radius: 5px;
+      padding: 15px;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    .robot {
+      padding: 10px;
+      border: 1px solid #ccc;
+      margin: 10px 0;
+      border-radius: 4px;
+    }
+    label {
+      display: block;
+      margin-top: 10px;
+    }
+    input, textarea {
+      width: 100%;
+      padding: 6px;
+    }
+    footer {
+      background: #ccc;
+      padding: 10px;
+      text-align: center;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+[6/14, 9:33 PM] munyugumike12: <h1>Forex Trading Cash</h1>
+    <p>Trading platform yizewe mu Burundi</p>
+  </header>
+
+  <nav>
+    <button>Login</button>
+    <button>Register</button>
+  </nav>
+
+  <main>
+    <div class="section">
+      <h2>Konti Yawe</h2>
+      <p>Izina: <strong>User Demo</strong></p>
+      <p>Saldo kuri konti: <strong>150,000 BIF</strong></p>
+    </div>
+
+    <div class="section">
+      <h2>Robots</h2>
+      <div class="robot">Robot 1: 10,000 BIF → 600 BIF/day (30 days)</div>
+      <div class="robot">Robot 2: 20,000 BIF → 1,200 BIF/day</div>
+      <div class="robot">Robot 3: 30,000 BIF → 1,800 BIF/day</div>
+      <div class="robot">Robot 4: 40,000 BIF → 2,400 BIF/day</div>
+      <div class="robot">Robot 5: 50,000 BIF → 3,000 BIF/day</div>
+    </div>
+
+    <div class="section">
+      <h2>Gukora Deposit</h2>
+      <p>Rungika amafaranga kuri: <strong>Lumicash 66816446</strong></p>
+      <label>Izina:</label><input type="text" placeholder="Izina ryawe"/>
+      <label>Amafaranga warungitse (BIF):</label><input type="number" />
+      <label>Ivyiyumviro canke Note:</label><textarea></textarea>
+      <button>Submit Deposit</button>
+    </div>
+
+    <div class="section">
+      <h2>Gusaba Retrait</h2>
+      <label>Izina ryawe:</label><input type="text" />
+[6/14, 9:33 PM] munyugumike12: <label>Amafaranga ushaka (BIF):</label><input type="number" />
+      <label>Note:</label><textarea></textarea>```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Forex Trading Cash</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f9f9f9;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      background: #009688;
+      color: #fff;
+      padding: 20px;
+      text-align: center;
+    }
+    nav {
+      text-align: right;
+      padding: 10px;
+      background: #e0e0e0;
+    }
+    nav button {
+      margin: 0 5px;
+    }
+    main {
+      padding: 20px;
+    }
+    .section {
+      background: #fff;
+      border-radius: 5px;
+      padding: 15px;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    .robot {
+      padding: 10px;
+      border: 1px solid #ccc;
+      margin: 10px 0;
+      border-radius: 4px;
+    }
+    label {
+      display: block;
+      margin-top: 10px;
+    }
+    input, textarea {
+      width: 100%;
+      padding: 6px;
+    }
+    footer {
+      background: #ccc;
+      padding: 10px;
+      text-align: center;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+[6/14, 9:33 PM] munyugumike12: <h1>Forex Trading Cash</h1>
+    <p>Trading platform yizewe mu Burundi</p>
+  </header>
+
+  <nav>
+    <button>Login</button>
+    <button>Register</button>
+  </nav>
+
+  <main>
+    <div class="section">
+      <h2>Konti Yawe</h2>
+      <p>Izina: <strong>User Demo</strong></p>
+      <p>Saldo kuri konti: <strong>150,000 BIF</strong></p>
+    </div>
+
+    <div class="section">
+      <h2>Robots</h2>
+      <div class="robot">Robot 1: 10,000 BIF → 600 BIF/day (30 days)</div>
+      <div class="robot">Robot 2: 20,000 BIF → 1,200 BIF/day</div>
+      <div class="robot">Robot 3: 30,000 BIF → 1,800 BIF/day</div>
+      <div class="robot">Robot 4: 40,000 BIF → 2,400 BIF/day</div>
+      <div class="robot">Robot 5: 50,000 BIF → 3,000 BIF/day</div>
+    </div>
+
+    <div class="section">
+      <h2>Gukora Deposit</h2>
+      <p>Rungika amafaranga kuri: <strong>Lumicash 66816446</strong></p>
+      <label>Izina:</label><input type="text" placeholder="Izina ryawe"/>
+      <label>Amafaranga warungitse (BIF):</label><input type="number" />
+      <label>Ivyiyumviro canke Note:</label><textarea></textarea>
+      <button>Submit Deposit</button>
+    </div>
+
+    <div class="section">
+      <h2>Gusaba Retrait</h2>
+      <label>Izina ryawe:</label><input type="text" />
+[6/14, 9:33 PM] munyugumike12: <label>Amafaranga ushaka (BIF):</label><input type="number" />
+      <label>Note:</label><textarea></textarea>
+      <button>Submit Retrait</button>
+    </div>
+
+    <div class="section">
+      <h2>Admin Panel (Demo)</h2>
+      <p>🛠️ Aha ni ho admin azokwemera ama deposit canke retrait.</p>
+    </div>
+  </main>
+
+  <footer>
+    &copy; 2025 Forex Trading Cash. All rights reserved.
+  </footer>
+</body>
 </html>
+```
+      <button>Submit Retrait</button>
+    </div>
+
+    <div class="section">
+      <h2>Admin Panel (Demo)</h2>
+      <p>🛠️ Aha ni ho admin azokwemera ama deposit canke retrait.</p>
+    </div>
+  </main>
+
+  <footer>
+    &copy; 2025 Forex Trading Cash. All rights reserved.
+  </footer>
+</body>
+</html>
+```
